@@ -1,0 +1,45 @@
+%! Author = stefanobragaglia
+%! Date = 03/12/2025
+
+% Preamble
+\documentclass[twoside]{article}
+
+% Packages
+\usepackage{magazine}
+
+\usepackage{xcolor}
+\usepackage[%
+    pdfpagemode={UseNone},%
+    pdfpagelayout={TwoColumnRight}%
+]{hyperref}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{stfloats}
+\usepackage{picinpar}
+%usage of picinpar:
+%\begin{window}[1,l,\includegraphics{},caption]xxxxx\end{window}
+
+\usepackage{lipsum}
+
+% Front matter
+\definecolor{TWRed}{RGB}{207, 46, 54}
+\hypersetup{
+    colorlinks,breaklinks,
+    urlcolor=TWRed,
+    linkcolor=TWRed,
+    urlbordercolor=blue,
+    pdfborder={1 1 1},
+    pdfborderstyle={/S/U/W 1}
+}
+
+\SetPaperName{The \textcolor{TWRed}{TW}ickenham \textcolor{TWRed}{TW}ig}
+\SetHeaderName{The Twickenham Twig:}
+\SetPaperLocation{}
+\SetPaperSlogan{\includegraphics[width=1.0in]{res/logo}}
+\SetPaperPrice{}
+
+% Document
+\begin{document}
+    \input{2025_04/issue}
+\end{document}

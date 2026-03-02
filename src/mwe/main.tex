@@ -1,0 +1,71 @@
+%! Author = stefanobragaglia
+%! Date = 23/11/2025
+% Preamble
+\documentclass{article}
+
+% Packages
+\usepackage[pdfpagemode={UseNone},pdfpagelayout={TwoColumnRight}]{hyperref}
+\usepackage{newsprint}
+\usepackage[T1]{fontenc}
+\usepackage[condensed]{cabin}
+\usepackage{tgtermes}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{stfloats}
+\usepackage{picinpar}
+%uasage of picinpar:
+%\begin{window}[1,l,\includegraphics{},caption]xxxxx\end{window}
+
+\usepackage{lipsum}
+
+% Front matter
+\def\seriesdefault{m}
+\definecolor{TWRed}{RGB}{207, 46, 54}
+\hypersetup{
+    colorlinks,breaklinks,
+    urlcolor=TWRed,
+    linkcolor=TWRed,
+    urlbordercolor=blue,
+    pdfborder={1 1 1},
+    pdfborderstyle={/S/U/W 1}
+}
+
+\SetPaperName{\textcolor{TWRed}{Bonsai Club} Newsletter}
+\SetHeaderName{Bonsai Club Newsletter:}
+\SetPaperLocation{}
+\SetPaperSlogan{\includegraphics[width=1.0in]{res/logo}}
+\SetPaperPrice{}
+
+\date{November 2025}
+\currentvolume{6}
+\currentissue{33}
+
+
+% Document
+\begin{document}
+    \maketitle
+
+    \setlength{\columnsep}{-5.0cm}
+    \begin{multicols}{2}
+        \noindent\textsf{In this issue:}
+        \begin{itemize}
+            \item \textsf{\textbf{1st Article}}, p.~\pageref{art01}.
+            \item \textsf{\textbf{2nd Article}}, p.~\pageref{art02}.
+
+        \end{itemize}
+        \vfill\null
+        \columnbreak
+
+        \input{issue/editorial}
+    \end{multicols}
+    \pagebreak
+
+    \setlength{\columnsep}{0.5cm}
+    \begin{multicols}{2}
+        \input{issue/article_01}
+        \input{issue/article_02}
+
+    \end{multicols}
+\end{document}

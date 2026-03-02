@@ -1,0 +1,80 @@
+%! Author = stefanobragaglia
+%! Date = 03/12/2025
+
+% Preamble
+\documentclass[twoside,openright]{book}
+
+% Packages
+\usepackage{magazine}
+
+\usepackage{xcolor}
+\usepackage[%
+    pdfpagemode={UseNone},%
+    pdfpagelayout={TwoColumnRight}%
+]{hyperref}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{stfloats}
+\usepackage{picinpar}
+%usage of picinpar:
+%\begin{window}[1,l,\includegraphics{},caption]xxxxx\end{window}
+
+\usepackage{lipsum}
+\usepackage{changepage}
+
+% Front matter
+\definecolor{TWRed}{RGB}{207, 46, 54}
+\hypersetup{
+    colorlinks,breaklinks,
+    urlcolor=TWRed,
+    linkcolor=TWRed,
+    urlbordercolor=blue,
+    pdfborder={1 1 1},
+    pdfborderstyle={/S/U/W 1}
+}
+
+\SetPaperName{The \textcolor{TWRed}{TW}ickenham \textcolor{TWRed}{TW}ig}
+\SetHeaderName{The Twickenham Twig:}
+\SetPaperLocation{}
+\SetPaperSlogan{\includegraphics[width=1.0in]{res/logo}}
+\SetPaperPrice{}
+
+% Document
+\begin{document}
+    \pagestyle{empty}
+    \title{%
+        \vspace*{5.0em}%
+        {\sffamily\Huge The \textcolor{TWRed}{TW}ickenham \textcolor{TWRed}{TW}ig 2025}\\%
+        {\sffamily\Large A Year in the Twickenham Bonsai Club}\\%
+        \vspace*{20.0em}%
+    }
+    \author{{\Large Twickenham Bonsai Club}}
+    \date{December 2025}
+    \maketitle
+    \input{matter/copyright}
+
+    \frontmatter
+
+    \input{matter/foreword}
+
+    \input{matter/preface}
+
+    \hypersetup{linkcolor=black}
+    \tableofcontents
+    \hypersetup{linkcolor=TWRed}
+
+    \mainmatter
+    \input{2024_12/issue}
+    \input{2025_01/issue}
+    \input{2025_02/issue}
+    \input{2025_03/issue}
+    \input{2025_04/issue}
+    \input{2025_05/issue}
+    \input{2025_06/issue}
+    \input{2025_07/issue}
+    \input{2025_08/issue}
+    \input{2025_09/issue}
+    \input{2025_10/issue}
+    \input{2025_11/issue}
+\end{document}

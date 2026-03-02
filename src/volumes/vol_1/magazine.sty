@@ -1,0 +1,164 @@
+%%% insert your licence statement here and declare the package as a derivative,
+%%% if applicable (but good practice even if not required)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% original licence statement:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Matthew Allen
+%%% January 14, 2007
+%%%
+%%% This package provides a newspaper style heading
+%%% for the standard Article or Report class.
+%%% The default headings page style is redefined to accomodate
+%%% headings at the top of all subsequent pages (two page layout).
+%%%
+%%% A good idea is to use this package with
+%%% the multicols package and the picinpar package.
+%%%
+%%% Modified by Stefano Bragaglia to create
+%%% the newsletter of the TWickenham bonsai club
+%%% with help from the community on tex.stackexchange.com
+%%%
+
+%*******    Identification   *****
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{magazine}
+
+%*******    Declaration of options *****
+% no options at this time
+
+%*******    Execution of options   *****
+% no options at this time
+
+%******     Package Loading   *****
+\RequirePackage[T1]{fontenc}
+\RequirePackage[condensed]{cabin}
+\RequirePackage{tgtermes}
+\RequirePackage{amssymb}
+
+%******     main code *****
+\DeclareRobustCommand \titlefont{%
+  \not@math@alphabet\titlefont\relax
+  \fontfamily{Cabin-TLF}\fontseries{c}\upshape
+}
+\DeclareTextFontCommand \texttitle{\titlefont}
+\def\seriesdefault{m}
+
+%%%%%%%%%%% Define Text Dimensions  %%%%%%%
+\setlength\topmargin{-48pt}         % article default = -58pt
+\setlength\headheight{0pt}          % article default = 12pt
+\setlength\headsep{34pt}            % article default = 25pt
+\setlength\marginparwidth{-20pt}    % article default = 121pt
+\setlength\textwidth{7.0in}         % article default = 418pt
+\setlength\textheight{9.5in}        % article default = 296pt
+\setlength\oddsidemargin{-30pt}
+\setlength\evensidemargin{-30pt}
+
+%%%% counters for vol_1 and number %%%%
+\newcounter{volume}
+\newcommand\currentvolume[1]{\setcounter{volume}{#1}}
+\newcounter{issue}
+\newcommand\currentissue[1]{\setcounter{issue}{#1}}
+
+%%%% set internal variables %%%%
+\def\@papername{Committee Times}
+\def\@headername{Committee Times:}   % because of the yfonts you may need both papername and headername
+\def\@paperlocation{Washington DC}
+\def\@paperslogan{``All the News I Feel Like Printing.''}
+\def\@paperprice{Zero Dollars}
+
+\newcommand\SetPaperName[1]{%
+\def\@papername{#1}}
+\newcommand\SetHeaderName[1]{%
+\def\@headername{#1}}
+\newcommand\SetPaperLocation[1]{%
+\def\@paperlocation{#1}}
+\newcommand\SetPaperSlogan[1]{%
+\def\@paperslogan{#1}}
+\newcommand\SetPaperPrice[1]{%
+\def\@paperprice{#1}}
+
+%%%%%%%%%%% Redefine \masthead     %%%%%%%
+\newcommand{\masthead}[3]{%
+  \pagestyle{empty}%
+  \cleardoublepage%
+  \setcounter{volume}{#1}%
+  \setcounter{issue}{#2}%
+  \def\@date{#3}%
+  \thispagestyle{empty}%
+  \vspace*{-40pt}
+  \begin{center}
+    {\setlength\fboxsep{3mm}\raisebox{12pt}{\framebox[1.2\width]{\parbox[c]{1.15in}{\begin{center}\small \@paperslogan\end{center}}}}}\hfill
+    {\titlefont\fontsize{40pt}{10pt}\selectfont\@papername}\hfill
+    \raisebox{12pt}{\textbf{\footnotesize \@paperlocation}}\\
+    \vspace*{0.1in}
+    \rule[0pt]{\textwidth}{0.5pt}\\
+    {\small VOL.\MakeUppercase{\roman{volume}}\,$\cdot$\,No.\arabic{issue}} \hfill \MakeUppercase{\small\itshape\@date} \hfill {\small\MakeUppercase{\@paperprice}}\\
+    \rule[6pt]{\textwidth}{1.2pt}
+  \end{center}
+  \phantomsection\addcontentsline{toc}{chapter}{%
+    VOL.\MakeUppercase{\roman{volume}}, No.\arabic{issue}: \MakeUppercase{\itshape\protect\textbf{\@date}}%
+  }%
+  \pagestyle{headings}%
+}
+
+%%%%%%%   redefine headings page style  %%%%%%%
+\renewcommand{\ps@headings}{%
+  \renewcommand\@evenfoot{}                   % empty recto footer
+  \let\@oddfoot\@evenfoot                     % empty verso footer
+  \renewcommand\@evenhead
+  {\parbox{\textwidth}{\vspace*{4pt}
+      \textrm{\thepage}\hfill\normalfont\textbf{\@headername}\quad\MakeUppercase{\itshape\@date}\hfill{\small VOL.\MakeUppercase{\roman{volume}}\,$\cdot$\,No.\arabic{issue}}\\
+      \rule{\textwidth}{0.5pt}
+  \vspace*{12pt}}}%
+  \renewcommand\@oddhead
+  {\parbox{\textwidth}{\vspace*{4pt}
+      {\small VOL.\MakeUppercase{\roman{volume}}\,$\cdot$\,No.\arabic{issue}}\hfill\normalfont\textbf{\@headername}\quad\MakeUppercase{\itshape\@date}\hfill\textrm{\thepage}\\
+      \rule{\textwidth}{0.5pt}
+  \vspace*{12pt}}}}
+
+%%%%%%%%%%%  Headline (with byline) command  %%%%%%%%%
+\newcommand\headline[1]{\begin{center} #1\\ %
+\rule[3pt]{0.4\hsize}{0.5pt}\\ \end{center} \par}
+
+%%%%%%%%%%%  Headline (with byline) command  %%%%%%%%%
+\newcommand\byline[2]{\begin{center} #1 \\%
+    {\footnotesize\bfseries By \MakeUppercase{#2}} \\ %
+\rule[3pt]{0.4\hsize}{0.5pt}\\ \end{center} \par}
+
+\newcommand\topic[1]{\vspace{0.5em}\noindent\textbf{\sffamily #1} \par}
+
+\newcommand\closearticle{{\begin{center}\rule[6pt]{\hsize}{1pt}\vspace*{-16pt}
+\rule{\hsize}{0.5pt}\end{center}}}
+%%%%%%%%%%%%%%%%%  MakeIssue commans  %%%%%%%%%%%%%%%%
+\newcommand{\makeissue}[6]{%
+    % #1: Volume (e.g., 25)
+    % #2: Issue (e.g., 1)
+    % #3: Date (e.g., January 2025)
+    % #4: TOC Side Panel Content (e.g., \item \textsf{...})
+    % #5: Editorial File Path (e.g., 2025_01/issue/editorial)
+    % #6: Main Content (e.g., \input{...}\input{...})
+
+    % 1. Masthead and Initial Multicols for TOC/Editorial
+    \masthead{#1}{#2}{#3}%
+    \setlength{\columnsep}{-5.0cm}% Set column separation for the first page layout
+    \begin{multicols}{2}
+        % Left Column: TOC Side Panel
+        \noindent\textsf{In this issue:}
+        \begin{itemize}
+            #4 % Insert the side panel list items
+        \end{itemize}
+        \vfill\null % Ensures the vertical space is filled, pushing the box up
+        \columnbreak % Force a column break
+
+        % Right Column: Editorial
+        \input{#5} % Input the editorial content
+    \end{multicols}
+    % 2. Transition to Main Articles
+    \pagebreak
+    \setlength{\columnsep}{0.5cm}% Reset column separation for the main article layout
+    \begin{multicols}{2}
+        % Main Articles
+        #6 % Insert the main articles content
+    \end{multicols}
+}
+%%%%%%%%%%%%%%%%%%%%  End of Package  %%%%%%%%%%%%%%%%
